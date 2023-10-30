@@ -34,17 +34,7 @@
             Text="Hej"
             TextAlignment="Center" />
         <views:DecreaseView Grid.Row="2" Grid.Column="1"></views:DecreaseView>
-        <Button
-            Name="ZeroBtn"
-            Grid.Row="2"
-            Grid.Column="2"
-            Click="ZeroBtn_OnClick"
-            Content="Zero" />
-        <Button
-            Name="IncreaseBtn"
-            Grid.Row="2"
-            Grid.Column="3"
-            Click="IncreaseBtn_OnClick"
-            Content="Increase" />
+        
+
     </Grid>
 </Window>
