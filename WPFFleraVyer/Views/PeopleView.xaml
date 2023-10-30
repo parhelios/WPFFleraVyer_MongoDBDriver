@@ -14,7 +14,10 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <ListView Name="PeopleLv" ItemsSource="{Binding PeopleList}">
+        <ListView
+            Name="PeopleLv"
+            ItemsSource="{Binding PeopleList}"
+            SelectedItem="{Binding SelectedPerson, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding FirstName}" Header="First Name" />
@@ -30,9 +33,16 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBox Name="FirstNameText" />
-            <TextBox Name="LastNameText" Grid.Row="1" />
-            <Button Grid.Row="2" Content="Update" />
+            <TextBox
+                Name="FirstNameText"
+                Margin="5"
+                Text="{Binding EditFirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox
+                Name="LastNameText"
+                Grid.Row="1"
+                Margin="5"
+                Text="{Binding EditLastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Grid.Row="2" Content="Update" Name="UpdateBtn" Click="UpdateBtn_OnClick"/>
             <Button Grid.Row="3" Content="Add" />
             <Button Grid.Row="4" Content="Remove" />
         </Grid>

@@ -24,6 +24,12 @@ namespace WPFFleraVyer.Views
     {
         public ObservableCollection<PersonModel> PeopleList { get; set; } = new ();
 
+        public PersonModel? SelectedPerson { get; set; } = new ();
+
+        public string EditFirstName { get; set; } = string.Empty;
+
+        public string EditLastName { get; set; } = string.Empty;
+
         public PeopleView()
         {
             InitializeComponent();
@@ -32,6 +38,17 @@ namespace WPFFleraVyer.Views
 
             PeopleList.Add(new PersonModel() { FirstName = "Niklas", LastName = "Hjelm" });
             PeopleList.Add(new PersonModel() { FirstName = "Vidar", LastName = "Hjelm" });
+        }
+
+        private void UpdateBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (SelectedPerson is null)
+            {
+                return;
+            }
+
+            SelectedPerson.FirstName = EditFirstName;
+            SelectedPerson.LastName = EditLastName;
         }
     }
 }
