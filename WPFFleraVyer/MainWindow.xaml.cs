@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using WPFFleraVyer.Managers;
-using WPFFleraVyer.Models;
 
 namespace WPFFleraVyer
 {
@@ -14,17 +12,5 @@ namespace WPFFleraVyer
             InitializeComponent();
         }
 
-
-        private void ZeroBtn_OnClick(object sender, RoutedEventArgs e)
-        {
-            CounterManager.CounterModel.Counter = 0;
-            CounterText.Text = CounterManager.CounterModel.Counter.ToString();
-        }
-
-        private void IncreaseBtn_OnClick(object sender, RoutedEventArgs e)
-        {
-            CounterManager.CounterModel.Counter++;
-            CounterText.Text = CounterManager.CounterModel.Counter.ToString();
-        }
     }
 }

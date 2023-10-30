@@ -12,29 +12,13 @@
     FontSize="32"
     mc:Ignorable="d">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30" />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition Width="30" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
-            <RowDefinition />
-            <RowDefinition Height="4*" />
-            <RowDefinition Height="20" />
-        </Grid.RowDefinitions>
-        <TextBlock
-            Name="CounterText"
-            Grid.Row="1"
-            Grid.Column="2"
-            Background="black"
-            Foreground="Bisque"
-            Text="Hej"
-            TextAlignment="Center" />
-        <views:DecreaseView Grid.Row="2" Grid.Column="1"></views:DecreaseView>
-        
-
+        <TabControl>
+            <TabItem Header="Counter">
+                <views:CounterView />
+            </TabItem>
+            <TabItem Header="People">
+                <views:PeopleView />
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
