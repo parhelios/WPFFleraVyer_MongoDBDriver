@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:WPFFleraVyer"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:WPFFleraVyer.Views"
     Title="MainWindow"
     Width="800"
     Height="450"
@@ -32,12 +33,7 @@
             Foreground="Bisque"
             Text="Hej"
             TextAlignment="Center" />
-        <Button
-            Name="DecreaseBtn"
-            Grid.Row="2"
-            Grid.Column="1"
-            Click="DecreaseBtn_OnClick"
-            Content="Decrease" />
+        <views:DecreaseView Grid.Row="2" Grid.Column="1"></views:DecreaseView>
         <Button
             Name="ZeroBtn"
             Grid.Row="2"
