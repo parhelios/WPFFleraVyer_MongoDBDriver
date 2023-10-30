@@ -22,5 +22,19 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBox Name="FirstNameText" />
+            <TextBox Name="LastNameText" Grid.Row="1" />
+            <Button Grid.Row="2" Content="Update" />
+            <Button Grid.Row="3" Content="Add" />
+            <Button Grid.Row="4" Content="Remove" />
+        </Grid>
     </Grid>
 </UserControl>
