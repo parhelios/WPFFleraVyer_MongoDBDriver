@@ -27,8 +27,10 @@ public class PeopleRepository
         };
         _people.InsertOne(newPerson);
 
-        var filter = Builders<Person>.Filter.Eq("FirstName", firstName);
-        var personSaved = _people.Find(filter).FirstOrDefault();
+        var filter = Builders<Person>.Filter
+            .Eq("FirstName", firstName);
+        var personSaved = _people
+            .Find(filter).FirstOrDefault();
 
         return personSaved.Id.ToString();
     }
@@ -37,10 +39,30 @@ public class PeopleRepository
     {
         var filter = Builders<Person>.Filter.Empty;
         //var allPeople = _people.Find(_ => true); //alternativ hantering för det nedre, där man inte behöver använda filter
-        var allPeople = _people.Find(filter).ToList();
+        var allPeople = _people
+            .Find(filter).ToList();
 
         return allPeople;
+    }
 
+    public Person UpdateLastNameForPerson(string firstName, string newLastName)
+    {
+        var filter = Builders<Person>.Filter
+            .Eq("FirstName", firstName);
+        var update = Builders<Person>.Update
+                .Set(person => person.LastName, newLastName)
+            /*.Set(person => person.FirstName, newFirstname)*/; //för att demonstrera att det går att bygga för att sätta flera olika värden
+
+        _people.UpdateOne(filter, update);
+
+        return _people.Find(filter).FirstOrDefault();
+    }
+
+    public void DeletePerson(string firstName)
+    {
+        var filter = Builders<Person>.Filter
+            .Eq("FirstName", firstName);
+        _people.DeleteOne(filter);
     }
 
 }
