@@ -42,9 +42,21 @@
                 Grid.Row="1"
                 Margin="5"
                 Text="{Binding EditLastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Grid.Row="2" Content="Update" Name="UpdateBtn" Click="UpdateBtn_OnClick"/>
-            <Button Grid.Row="3" Content="Add" />
-            <Button Grid.Row="4" Content="Remove" />
+            <Button
+                Name="UpdateBtn"
+                Grid.Row="2"
+                Click="UpdateBtn_OnClick"
+                Content="Update" />
+            <Button
+                Name="AddPersonBtn"
+                Grid.Row="3"
+                Click="AddPersonBtn_OnClick"
+                Content="Add" />
+            <Button
+                Name="RemovePersonBtn"
+                Grid.Row="4"
+                Click="RemovePersonBtn_OnClick"
+                Content="Remove" />
         </Grid>
     </Grid>
 </UserControl>

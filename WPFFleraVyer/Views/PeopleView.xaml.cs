@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -49,6 +50,24 @@ namespace WPFFleraVyer.Views
 
             SelectedPerson.FirstName = EditFirstName;
             SelectedPerson.LastName = EditLastName;
+        }
+
+        private void AddPersonBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            var newPerson = new PersonModel();
+            newPerson.FirstName = EditFirstName;
+            newPerson.LastName = EditLastName;
+            PeopleList.Add(newPerson);
+        }
+
+        private void RemovePersonBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (SelectedPerson is null)
+            {
+                return;
+            }
+
+            PeopleList.Remove(SelectedPerson);
         }
     }
 }
