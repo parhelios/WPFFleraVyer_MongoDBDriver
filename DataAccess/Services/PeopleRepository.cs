@@ -33,4 +33,14 @@ public class PeopleRepository
         return personSaved.Id.ToString();
     }
 
+    public List<Person> GetAllPeople()
+    {
+        var filter = Builders<Person>.Filter.Empty;
+        //var allPeople = _people.Find(_ => true); //alternativ hantering för det nedre, där man inte behöver använda filter
+        var allPeople = _people.Find(filter).ToList();
+
+        return allPeople;
+
+    }
+
 }
