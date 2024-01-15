@@ -75,7 +75,7 @@ public class PeopleRepository
     public void DeletePerson(string id)
     {
         var filter = Builders<Person>.Filter
-            .Eq("FirstName", firstName);
+            .Eq("_id", ObjectId.Parse(id));
         _people.DeleteOne(filter);
     }
 

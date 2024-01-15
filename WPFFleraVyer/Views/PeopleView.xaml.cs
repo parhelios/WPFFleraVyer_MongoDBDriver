@@ -74,7 +74,7 @@ namespace WPFFleraVyer.Views
             {
                 return;
             }
-            _repo.DeletePerson(SelectedPerson.FirstName);
+            _repo.DeletePerson(SelectedPerson.Id);
 
             PeopleList.Remove(SelectedPerson);
         }
