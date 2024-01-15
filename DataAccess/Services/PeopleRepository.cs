@@ -12,10 +12,25 @@ public class PeopleRepository
         var hostName = "localhost";
         var port = "27017";
         var databaseName = "PeopleDb";
+
         var client = new MongoClient($"mongodb://{hostName}:{port}");
         var database = client.GetDatabase(databaseName);
-        _people = database.GetCollection<Person>("People", new MongoCollectionSettings() { AssignIdOnInsert = true });
+        _people = database.GetCollection<Person>("People", new MongoCollectionSettings { AssignIdOnInsert = true });
     }
 
+    public string AddPerson(string firstName, string lastName)
+    {
+        var newPerson = new Person()
+        {
+            FirstName = firstName,
+            LastName = lastName
+        };
+        _people.InsertOne(newPerson);
+
+        var filter = Builders<Person>.Filter.Eq("FirstName", firstName);
+        var personSaved = _people.Find(filter).FirstOrDefault();
+
+        return personSaved.Id.ToString();
+    }
 
 }
