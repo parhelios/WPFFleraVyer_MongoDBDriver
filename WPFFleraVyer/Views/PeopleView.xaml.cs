@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using Common.DTO;
 using DataAccess.Services;
 using WPFFleraVyer.Models;
 
@@ -33,7 +34,12 @@ namespace WPFFleraVyer.Views
 
             foreach (var person in allPeople)
             {
-                PeopleList.Add(new PersonModel{FirstName = person.FirstName, LastName = person.LastName});
+                PeopleList.Add(new PersonModel
+                {
+                    Id = person.Id,
+                    FirstName = person.FirstName, 
+                    LastName = person.LastName
+                });
             }
         }
 
@@ -47,7 +53,7 @@ namespace WPFFleraVyer.Views
             SelectedPerson.FirstName = EditFirstName;
             SelectedPerson.LastName = EditLastName;
 
-            _repo.UpdateLastNameForPerson(SelectedPerson.FirstName, EditLastName);
+            _repo.UpdateLastNameForPerson(SelectedPerson.Id, EditLastName);
         }
 
         private void AddPersonBtn_OnClick(object sender, RoutedEventArgs e)
@@ -55,9 +61,11 @@ namespace WPFFleraVyer.Views
             var newPerson = new PersonModel();
             newPerson.FirstName = EditFirstName;
             newPerson.LastName = EditLastName;
+            var personRecord = new PersonRecord("", EditFirstName, EditLastName);
+
             PeopleList.Add(newPerson);
 
-            var id = _repo.AddPerson(newPerson.FirstName, newPerson.LastName);
+            _repo.AddPerson(personRecord);
         }
 
         private void RemovePersonBtn_OnClick(object sender, RoutedEventArgs e)

@@ -1,4 +1,7 @@
-﻿using DataAccess.Enteties;
+﻿using System.Runtime.InteropServices.ComTypes;
+using Common.DTO;
+using DataAccess.Enteties;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace DataAccess.Services;
@@ -18,47 +21,58 @@ public class PeopleRepository
         _people = database.GetCollection<Person>("People", new MongoCollectionSettings { AssignIdOnInsert = true });
     }
 
-    public string AddPerson(string firstName, string lastName)
+    public void AddPerson(PersonRecord personRecord)
     {
         var newPerson = new Person()
         {
-            FirstName = firstName,
-            LastName = lastName
+            FirstName = personRecord.FirstName,
+            LastName = personRecord.LastName
         };
+
         _people.InsertOne(newPerson);
 
-        var filter = Builders<Person>.Filter
-            .Eq("FirstName", firstName);
-        var personSaved = _people
-            .Find(filter).FirstOrDefault();
+        //var filter = Builders<Person>.Filter
+        //    .Eq("FirstName", firstName);
+        //var personSaved = _people
+        //    .Find(filter).FirstOrDefault();
 
-        return personSaved.Id.ToString();
+        //return personSaved.Id.ToString();
     }
 
-    public List<Person> GetAllPeople()
+    public List<PersonRecord> GetAllPeople()
     {
         var filter = Builders<Person>.Filter.Empty;
         //var allPeople = _people.Find(_ => true); //alternativ hantering för det nedre, där man inte behöver använda filter
-        var allPeople = _people
-            .Find(filter).ToList();
+        //var allPeople = _people
+        //    .Find(filter).ToList();
 
-        return allPeople;
+        var allPeople = _people
+            .Find(filter).ToList()
+            .Select(p => new PersonRecord(
+                p.Id.ToString(), 
+                p.FirstName, 
+                p.LastName)
+            );
+
+        return allPeople.ToList();
     }
 
-    public Person UpdateLastNameForPerson(string firstName, string newLastName)
+    public PersonRecord UpdateLastNameForPerson(string id, string newLastName)
     {
         var filter = Builders<Person>.Filter
-            .Eq("FirstName", firstName);
+            .Eq("_id", ObjectId.Parse(id));
         var update = Builders<Person>.Update
                 .Set(person => person.LastName, newLastName)
             /*.Set(person => person.FirstName, newFirstname)*/; //för att demonstrera att det går att bygga för att sätta flera olika värden
 
         _people.UpdateOne(filter, update);
 
-        return _people.Find(filter).FirstOrDefault();
+        var updatedPerson = _people.Find(filter).FirstOrDefault();
+
+        return new PersonRecord(updatedPerson.Id.ToString(), updatedPerson.FirstName, updatedPerson.LastName);
     }
 
-    public void DeletePerson(string firstName)
+    public void DeletePerson(string id)
     {
         var filter = Builders<Person>.Filter
             .Eq("FirstName", firstName);
